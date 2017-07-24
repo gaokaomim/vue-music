@@ -46,11 +46,11 @@ export default {
                 })
             }
         },
-        enable() {
-            this.scroll && this.scroll.enable()
-        },
         disable() {
             this.scroll && this.scroll.disable()
+        },
+        enable() {
+            this.scroll && this.scroll.enable()
         },
         refresh() {
             this.scroll && this.scroll.refresh()
