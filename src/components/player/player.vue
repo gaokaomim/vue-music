@@ -107,7 +107,7 @@ export default {
             currentLyric: null,
             currentLineNum: 0,
             currentShow: 'cd',
-            playingLyric
+            playingLyric: null
         }
     },
     computed: {
@@ -213,13 +213,17 @@ export default {
             if (!this.songReady) {
                 return
             }
-            let index = this.currentIndex + 1
-            if (index === this.playlist.length) {
-                index = 0
-            }
-            this.setCurrentIndex(index)
-            if (!this.playing) {
-                this.togglePlaying()
+            if (this.playlist.length === 1) {
+                this.loop()
+            } else {
+                let index = this.currentIndex + 1
+                if (index === this.playlist.length) {
+                    index = 0
+                }
+                this.setCurrentIndex(index)
+                if (!this.playing) {
+                    this.togglePlaying()
+                }
             }
             this.songReady = false
         },
@@ -227,14 +231,18 @@ export default {
             if (!this.songReady) {
                 return
             }
-            let index = this.currentIndex - 1
-            if (index === -1) {
-                index = this.playlist.length - 1
+            if (this.playlist.length === 1) {
+                this.loop()
+            } else {
+                let index = this.currentIndex - 1
+                if (index === -1) {
+                    index = this.playlist.length - 1
+                }
+                this.setCurrentIndex(index)
+                if (!this.playing) {
+                    this.togglePlaying()
+                }
             }
-            if (!this.playing) {
-                this.togglePlaying()
-            }
-            this.setCurrentIndex(index)
             this.songReady = false
         },
         ready() {
@@ -286,7 +294,10 @@ export default {
                 if (this.playing) {
                     this.currentLyric.play()
                 }
-                console.log(this.currentLyric)
+            }).catch(() => {
+                this.currentLyric = null
+                this.playingLyric = ''
+                this.currentLineNum = 0
             })
         },
         handleLyric({ lineNum, txt }) {
@@ -297,6 +308,7 @@ export default {
             } else {
                 this.$refs.lyricList.scrollTo(0, 0, 1000)
             }
+            this.playingLyric = txt
         },
         middleTouchStart(e) {
             this.touch.initiated = true
@@ -389,10 +401,10 @@ export default {
             if (this.currentLyric) {
                 this.currentLyric.stop()
             }
-            this.$nextTick(() => {
+            setTimeout(() => {
                 this.$refs.audio.play()
                 this.getLyric()
-            })
+            }, 1000)
         },
         playing(newPlaying) {
             const audio = this.$refs.audio
