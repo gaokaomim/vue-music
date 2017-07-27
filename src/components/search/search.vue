@@ -13,10 +13,19 @@
                         </li>
                     </ul>
                 </div>
+                <div class="search-history" v-show="searchHistory.length">
+                    <h1 class="title">
+                        <span class="text">搜索历史</span>
+                        <span class="clear" @click="clearSearchHistory">
+                            <i class="icon-clear"></i>
+                        </span>
+                    </h1>
+                    <search-list @delete="deleteSearchHistory" @select="addQuery" :searches="searchHistory"></search-list>
+                </div>
             </div>
         </div>
         <div class="search-result" v-show="query">
-            <suggest :query="query"></suggest>
+            <suggest @select="saveSearch" :query="query" @listScroll="blurInput"></suggest>
         </div>
         <router-view></router-view>
     </div>
@@ -27,6 +36,8 @@ import SearchBox from 'base/search-box/search-box'
 import { getHotKey } from 'api/search'
 import { ERR_OK } from 'api/config'
 import Suggest from 'components/suggest/suggest'
+import { mapActions, mapGetters } from 'vuex'
+import SearchList from 'base/search-list/search-list'
 export default {
     created() {
         this._getHotKey()
@@ -37,9 +48,15 @@ export default {
             query: ''
         }
     },
+    computed: {
+        ...mapGetters([
+            'searchHistory'
+        ])
+    },
     components: {
         SearchBox,
-        Suggest
+        Suggest,
+        SearchList
     },
     methods: {
         addQuery(query) {
@@ -48,13 +65,24 @@ export default {
         onQueryChange(query) {
             this.query = query
         },
+        blurInput() {
+            this.$refs.searchBox.blur()
+        },
+        saveSearch() {
+            this.saveSearchHistory(this.query)
+        },
         _getHotKey() {
             getHotKey().then((res) => {
                 if (res.code === ERR_OK) {
                     this.hotKey = res.data.hotkey.slice(0, 10)
                 }
             })
-        }
+        },
+        ...mapActions([
+            'saveSearchHistory',
+            'deleteSearchHistory',
+            'clearSearchHistory'
+        ])
     }
 }
 </script>
