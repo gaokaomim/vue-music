@@ -11,11 +11,11 @@
                         </span>
                     </h1>
                 </div>
-                <div class="list-content">
+                <scroll class="list-content" :data="sequenceList" ref="listContent">
                     <ul>
-                        <li class="item">
-                            <i class="current"></i>
-                            <span class="text"></span>
+                        <li ref="listItem" class="item" v-for="(item,index) in sequenceList" @click="selectItem(item,index)">
+                            <i class="current" :class="getCurrentIcon(item)"></i>
+                            <span class="text">{{item.name}}</span>
                             <span class="like">
                                 <i class="icon-not-favorite"></i>
                             </span>
@@ -24,7 +24,7 @@
                             </span>
                         </li>
                     </ul>
-                </div>
+                </scroll>
                 <div class="list-operate">
                     <div class="add">
                         <i class="icon-add"></i>
@@ -39,7 +39,10 @@
     </transition>
 </template>
 
-<script type="text/ecmascript-6">
+ <script type="text/ecmascript-6">
+import { mapGetters, mapMutations } from 'vuex'
+import { playMode } from 'common/js/config'
+import Scroll from 'base/scroll/scroll'
 export default {
     data() {
         return {
@@ -49,10 +52,57 @@ export default {
     methods: {
         show() {
             this.showFlag = true
+            setTimeout(() => {
+                this.$refs.listContent.refresh()
+                this.scroll
+            }, 20)
         },
         hide() {
             this.showFlag = false
+        },
+        getCurrentIcon(item) {
+            if (this.currentSong.id === item.id) {
+                return 'icon-play'
+            }
+            return ''
+        },
+        selectItem(item, index) {
+            if (this.mode === playMode.random) {
+                index = this.playlist.findIdex((song) => {
+                    return song.id === item.id
+                })
+            }
+            this.setCurrentIndex(index)
+            this.setPlayingState(true)
+        },
+        scrollToCurrent(current) {
+            const index = this.sequenceList.findIdex((song) => {
+                return current.id === song.id
+            })
+            this.$refs.listContent.scrollToElement(this.$refs.listItem[index], 300)
+        },
+        ...mapMutations({
+            setCurrentIndex: 'SET_CURRENT_INDEX',
+            setPlayingState: 'SET_PLAYING_STATE'
+        })
+    },
+    watch: {
+        currentSong(newSong, oldSong) {
+            if (!this.showFlag || newSong.id === oldSong.id) {
+                return
+            }
+            this.
         }
+    },
+    computed: {
+        ...mapGetters([
+            'sequenceList',
+            'currentSong',
+            'playlist'
+        ])
+    },
+    components: {
+        Scroll
     }
 }
 </script>
