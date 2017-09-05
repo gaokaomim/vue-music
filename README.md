@@ -18,7 +18,12 @@ npm run build
 npm run build --report
 ```
 ## 演示Demo
+### 1.推荐
 ![tuijian.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/tuijian.gif)
+### 2.歌手
+![geshou.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/geshou.gif)
+### 3.排行和搜索
+![search.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E8%A1%8C.gif)
 <pre>
 
                             _ooOoo_  
