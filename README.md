@@ -17,7 +17,13 @@ npm run build
 # build for production and view the bundle analyzer report
 npm run build --report
 ```
-
+## 演示Demo
+### 1.推荐
+![tuijian.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/tuijian.gif)
+### 2.歌手
+![geshou.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/geshou.gif)
+### 3.排行和搜索
+![搜索和排行.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/搜索和排行.gif)
 <pre>
 
                             _ooOoo_  
