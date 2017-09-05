@@ -23,7 +23,7 @@ npm run build --report
 ### 2.歌手
 ![geshou.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/geshou.gif)
 ### 3.排行和搜索
-![search.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/%E6%90%9C%E7%B4%A2%E5%92%8C%E6%8E%92%E8%A1%8C.gif)
+![搜索和排行.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/搜索和排行.gif)
 <pre>
 
                             _ooOoo_  
