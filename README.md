@@ -26,6 +26,7 @@ npm run build --report
 ![搜索和排行.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/搜索和排行.gif)
 ## 数据来源是访问qq音乐接口
 ### 1.歌手
+![singer.png](https://github.com/gaokaomim/vue-music/blob/master/demo/singer.png)
 <pre>
 
                             _ooOoo_  
