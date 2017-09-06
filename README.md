@@ -24,6 +24,8 @@ npm run build --report
 ![geshou.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/geshou.gif)
 ### 3.排行和搜索
 ![搜索和排行.gif](https://github.com/gaokaomim/vue-music/blob/master/demo/搜索和排行.gif)
+## 数据来源是访问qq音乐接口
+### 1.歌手
 <pre>
 
                             _ooOoo_  
